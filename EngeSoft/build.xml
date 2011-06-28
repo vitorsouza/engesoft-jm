@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="EngeSoft" default="default">
+	<description>Projeto de exemplo para artigo da Java Magazine 94.</description>
+
+	<!-- Declaração do SvnAnt como dependência. -->
+	<property name="libdir" location="/home/vitor/Workspaces/libraries" />
+	<path id="path.svnant">
+		<pathelement location="${libdir}/svnant-1.3.1/lib/svnant.jar" />
+		<pathelement location="${libdir}/svnant-1.3.1/lib/svnClientAdapter.jar" />
+	</path>
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="path.svnant" />
+
+	<!-- Definição do alvo padrão. -->
+	<target name="default" depends="commit" />
+
+	<!-- Efetua commit do código-fonte via SVN. -->
+	<target name="commit">
+		<svnSetting id="googlecode" username="vitorsouza@gmail.com" password="Kh3FG3Fv2qG2" svnkit="true" javahl="false" />
+		<tstamp><format property="timestamp" pattern="dd/MM/yyyy HH:mm:SS" /></tstamp>
+		<svn refid="googlecode">
+			<commit message="Commit feito pelo Ant em ${timestamp}">
+				<fileset dir="src"><include name="**/*" /></fileset>
+				<fileset dir="WebContent"><include name="**/*" /></fileset>
+			</commit>
+		</svn>
+	</target>
+</project>
